@@ -1,11 +1,33 @@
+import os
+import subprocess
+import sys
+
+# Function to install missing packages
+def install_missing_packages(packages):
+    for package in packages:
+        try:
+            __import__(package)
+        except ImportError:
+            print(f"Installing missing package: {package}")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# List of required packages
+required_packages = [
+    "streamlit", "pandas", "numpy", "matplotlib", "seaborn",
+    "scikit-learn", "scipy"
+]
+
+# Install missing packages
+install_missing_packages(required_packages)
+
+# Now, import all libraries
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.metrics.pairwise import euclidean_distances, cosine_similarity
-from sklearn.cluster import KMeans, DBSCAN
+from sklearn.cluster import KMeans
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
@@ -19,10 +41,6 @@ if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
     st.write("Dataset Preview:")
     st.dataframe(data.head())
-
-    # Data Information
-    st.write("### Data Information:")
-    st.text(data.info())
 
     # Data Preprocessing
     st.write("### Data Preprocessing:")

@@ -39,7 +39,7 @@ st.title("Customer Segmentation and Analysis")
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
-    st.write("Dataset Preview:")
+    st.write("### Dataset Preview:")
     st.dataframe(data.head())
 
     # Data Preprocessing
